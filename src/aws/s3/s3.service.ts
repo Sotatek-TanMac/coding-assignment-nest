@@ -1,4 +1,3 @@
-const fs = require('fs');
 import { Injectable } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import { AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_REGION } from '../../config/app.config';
