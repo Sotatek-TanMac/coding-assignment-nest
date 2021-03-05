@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { S3Service } from './s3.service';
-import { AWS_BUCKET, AWS_REGION } from '../../config/app.config';
+import { AWS_BUCKET } from '../../config/app.config';
+import { getDate } from '../../commons/utils';
 
 describe('S3Service', () => {
   let service: S3Service;
@@ -22,9 +23,8 @@ describe('S3Service', () => {
     const fileName = 'file_test.txt';
 
     const results = await service.upload({
-      Bucket: AWS_BUCKET,
       ContentType: 'text/plain',
-      Key: fileName,
+      FileName: fileName,
       Body: buffer,
       Metadata: {
         auth: 'sotatek',
@@ -34,7 +34,6 @@ describe('S3Service', () => {
 
     expect(results).toBeDefined();
     expect(results.Bucket).toBe(AWS_BUCKET);
-    expect(results.Key).toBe(fileName);
-    expect(results.Location).toEqual(`https://${AWS_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${fileName}`);
+    expect(results.Key).toBe(`${getDate()}/${fileName}`);
   });
 });

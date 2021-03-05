@@ -1,17 +1,20 @@
-export interface IFileDownload {
-	Bucket: string;
+export interface IFileS3 {
 	Key: string;
 }
 
-export interface IFileUpload extends IFileDownload {
+export interface IFileDownload extends IFileS3 {
+	
+}
+
+export interface IFileUpload {
+	FileName: string;
 	ContentType?: string;
 	Body: Buffer;
 	Metadata?: {[key: string]: string;};
 }
 
-export interface IFileUploadRes {
+export interface IFileUploadRes extends IFileS3 {
+	Bucket: string;
 	ETag: string;
 	Location: string;
-	Key: string;
-	Bucket: string;
 }
